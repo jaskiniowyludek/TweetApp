@@ -11,7 +11,7 @@
     <title>Welcome to TweetApp!</title>
 </head>
 <body>
-    <%@include file="fragments/header.jsp"%>
+    <%@include file="fragments/header2.jsp"%>
 
 </body>
 </html>

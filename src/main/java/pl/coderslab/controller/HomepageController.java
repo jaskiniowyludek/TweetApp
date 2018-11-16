@@ -20,4 +20,9 @@ public class HomepageController {
 
         return "main";
     }
+    @RequestMapping("/homepage")
+    public String showHomepage(){
+
+        return "homepage";
+    }
 }

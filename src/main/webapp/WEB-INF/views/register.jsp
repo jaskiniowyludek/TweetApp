@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: ewelina
@@ -12,14 +13,24 @@
 </head>
 <body>
     <%@include file="fragments/header.jsp"%>
+    <h2>Register as a new user</h2>
+    <form:form method="post" modelAttribute="user">
+        <div>
+            Username:
+            <form:input path="username" placeholder="Type username"/>
+            <form:errors path="username"/>
+        </div>
+        <div>
+            Email:
+            <form:input path="email" placeholder="Type your email address"/>
+            <form:errors path="email"/>
+        </div>
+        <div>
+            Password:
+            <form:password path="password" placeholder="Type password"/>
+            <form:errors path="password"/>
+        </div>
+        <div><input type="submit" value="Send"></div>
+    </form:form>
 </body>
 </html>
-<%--Strona ma pobierać email i haslo--%>
-<%--Jeżeli	takiego	adresu	email	nie	ma	jeszcze	w--%>
-<%--systemie	(tabeli	w	bazie),	to	rejestrujemy--%>
-<%--użytkownika	i	logujemy	(przekierowanie	na--%>
-<%--stronę	główną).--%>
-<%--Jeżeli	taki	adres	email	jest,	to--%>
-<%--przekierowujemy	do	strony	tworzenia--%>
-<%--użytkownika	(ta	sama	strona)	i	wyświetlamy--%>
-<%--komunikat	o	zajętym	adresie	email.--%>

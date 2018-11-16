@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ewelina
@@ -13,18 +14,24 @@
 </head>
 <body>
     <%@include file="fragments/header.jsp"%>
-    <form method="post" action="#">
-        <div>
-            Username:
-           <input type="text" name="username" placeholder="Type login">
-        </div>
-        <div>
-            Password:
-            <input type="password" name="password" placeholder="Type password">
-        </div>
-        <div>
-            <input type="submit" value="Login">
-        </div>
+
+    <form name='login' action="/login" method='POST'>
+        <table>
+            <tr>
+                <td>UserName:</td>
+                <td><input type='text' name='username' value=''></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type='password' name='password' /></td>
+            </tr>
+            <tr>
+                <td colspan='2'><input name="submit" type="submit" value="Send" /></td>
+            </tr>
+            <c:if test="${not empty errorMessage}">
+                <div style="color:red; font-weight: bold; margin: 30px 0px;"><c:out value="${errorMessage}"/></div></c:if>
+
+        </table>
     </form>
 </body>
 </html>
