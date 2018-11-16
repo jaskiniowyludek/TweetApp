@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: ewelina
@@ -12,7 +14,25 @@
 </head>
 <body>
     <%@include file="fragments/header2.jsp"%>
-
+    <dvi>
+        <h2>Add new tweet:</h2>
+        <form:form method="post" modelAttribute="tweet">
+            <form:textarea path="text" placeholder="Type your tweet"/>
+            <form:errors path="text"/>
+            <input type="submit" value="Send">
+        </form:form>
+    </dvi>
+    <div>
+        <h2>The newest tweets:</h2>
+    <ul>
+        <c:forEach items="${tweets}" var="tweet">
+            <li>Added by: ${tweet.user.username} on ${tweet.date}
+            <p>
+                ${tweet.text}
+            </p></li>
+        </c:forEach>
+    </ul>
+    </div>
 </body>
 </html>
 <%--//Strona	wyświetlająca	wszystkie	Tweety	jakie--%>

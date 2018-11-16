@@ -72,6 +72,11 @@ public class LoginController {
             return "register";
         }
         userRepository.save(user);
-        return "redirect:/homepage";
+        return "redirect:/userAdded";
+    }
+
+    @RequestMapping("/userAdded")
+    public String userAdded(){
+        return "registrationConfirmed";
     }
 }

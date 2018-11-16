@@ -6,6 +6,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -25,13 +27,17 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Tweet> tweets = new ArrayList<>();
+
     public User(){}
 
-    public User(String username, String password, boolean enabled, String email) {
+    public User(String username, String password, boolean enabled, String email, List<Tweet> tweets) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
+        this.tweets = tweets;
     }
 
     public int getId() {
@@ -40,6 +46,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
     }
 
     public String getUsername() {
