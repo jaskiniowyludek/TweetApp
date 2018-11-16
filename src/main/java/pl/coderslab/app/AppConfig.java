@@ -21,7 +21,7 @@ import javax.validation.Validator;
 @EnableWebMvc
 @ComponentScan(basePackages = "pl.coderslab")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "pl.coderslab.repositories")
+@EnableJpaRepositories(basePackages = "pl.coderslab.repository")
 public class AppConfig extends WebMvcConfigurerAdapter {
     //tutaj dodajemy beany
     @Bean
