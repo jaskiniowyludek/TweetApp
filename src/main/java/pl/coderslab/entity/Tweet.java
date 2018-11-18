@@ -6,10 +6,7 @@ import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Timestamp;
 import java.sql.Date;
 
 @Entity
@@ -23,7 +20,9 @@ public class Tweet {
     @ManyToOne
     private User user;
     @Column(updatable = false)
-    private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date date;
+
     @NotBlank
     @Column(columnDefinition = "TEXT")
     @Size(max = 140, message = "Maximum lenght: 140 characters!")
@@ -31,7 +30,7 @@ public class Tweet {
 
     public Tweet(){}
 
-    public Tweet(User user, Date date, String text) {
+    public Tweet(User user, java.util.Date date, String text) {
         this.user = user;
         this.date = date;
         this.text = text;
@@ -53,13 +52,16 @@ public class Tweet {
         this.user = user;
     }
 
-    public Date getDate() {
+    public java.util.Date getDate() {
+
         return date;
     }
 
-    public void setDate(Date date){
+    public void setDate(java.util.Date date){
        // SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
       //      this.date = LocalDateTime.parse(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        LocalDateTime created = task.getCreated();
+//        String formatedDate = created.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.date = date;
     }
 

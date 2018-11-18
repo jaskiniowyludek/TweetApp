@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -50,7 +52,7 @@ public class HomepageController {
         if (result.hasErrors()){
             return "homepage";
         }
-     //   tweet.setDate(new Date());
+        tweet.setDate(new java.util.Date());
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         tweet.setUser(user);

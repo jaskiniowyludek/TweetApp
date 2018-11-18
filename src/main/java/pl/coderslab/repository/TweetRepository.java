@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface TweetRepository extends JpaRepository<Tweet,Integer> {
 
-    List<Tweet> findAllByUser(User user);
-    @Query("select t from Tweet t JOIN User  u where u.id=?1")
-    List<Tweet> findAllByUserId(int id);
+    List<Tweet> findAllByUserOrderByDateDesc(User user);
+//    @Query("select t from Tweet t JOIN User  u ON Tweet.user.id=User.id where u.id=?1")
+//    List<Tweet> findAllByUserId(int id);
     List<Tweet> findAllByOrderByDateDesc();
 }

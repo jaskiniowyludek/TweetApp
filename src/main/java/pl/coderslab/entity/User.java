@@ -27,7 +27,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
     private List<Tweet> tweets = new ArrayList<>();
 
     public User(){}

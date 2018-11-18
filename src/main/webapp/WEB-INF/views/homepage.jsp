@@ -14,19 +14,17 @@
 </head>
 <body>
     <%@include file="fragments/header2.jsp"%>
-    <dvi>
         <h2>Add new tweet:</h2>
         <form:form method="post" modelAttribute="tweet">
             <form:textarea path="text" placeholder="Type your tweet"/>
             <form:errors path="text"/>
             <input type="submit" value="Send">
         </form:form>
-    </dvi>
     <div>
         <h2>The newest tweets:</h2>
     <ul>
         <c:forEach items="${tweets}" var="tweet">
-            <li>Added by: ${tweet.user.username} on ${tweet.date}
+            <li>Added by: <a href="/showUser?id=${tweet.user.id}">${tweet.user.username}</a> on ${tweet.date}
             <p>
                 ${tweet.text}
             </p></li>
