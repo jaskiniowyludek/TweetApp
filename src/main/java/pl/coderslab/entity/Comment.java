@@ -1,18 +1,14 @@
 package pl.coderslab.entity;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
-import java.sql.Date;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Table(name = "tweet")
-public class Tweet {
+@Table(name = "comment")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,22 +16,23 @@ public class Tweet {
 
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    private Tweet tweet;
+
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date date;
-
+    private Date date;
     @NotBlank
     @Column(columnDefinition = "TEXT")
-    @Size(max = 140, message = "Maximum lenght: 140 characters!")
+    @Size(max = 60, message = "Maximum number of characters 60!")
     private String text;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tweet",cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    public Comment(){}
 
-    public Tweet(){}
-
-    public Tweet(User user, java.util.Date date, String text) {
+    public Comment(User user, Tweet tweet, Date date, String text) {
         this.user = user;
+        this.tweet = tweet;
         this.date = date;
         this.text = text;
     }
@@ -56,16 +53,19 @@ public class Tweet {
         this.user = user;
     }
 
-    public java.util.Date getDate() {
+    public Tweet getTweet() {
+        return tweet;
+    }
 
+    public void setTweet(Tweet tweet) {
+        this.tweet = tweet;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(java.util.Date date){
-       // SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      //      this.date = LocalDateTime.parse(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        LocalDateTime created = task.getCreated();
-//        String formatedDate = created.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public void setDate(Date date) {
         this.date = date;
     }
 

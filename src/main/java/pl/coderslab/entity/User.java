@@ -30,6 +30,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
     private List<Tweet> tweets = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
     public User(){}
 
     public User(String username, String password, boolean enabled, String email, List<Tweet> tweets) {

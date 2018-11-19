@@ -27,7 +27,10 @@
             <li>Added by: <a href="/showUser?id=${tweet.user.id}">${tweet.user.username}</a> on ${tweet.date}
             <p>
                 ${tweet.text}
-            </p></li>
+            </p>
+                <p>
+                    <a href="/tweet?id=${tweet.id}">Details</a>
+                </p></li>
         </c:forEach>
     </ul>
     </div>
