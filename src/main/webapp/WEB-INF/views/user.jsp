@@ -19,8 +19,11 @@
         <li><p>
                 ${tweet.text}
         </p>
-            Added by: ${tweet.user.username}</a> on ${tweet.date}
+            Added by: ${tweet.user.username} on ${tweet.date}
             </li>
+        <p>
+            <a href="/tweet?id=${tweet.id}">Details</a>
+        </p>
     </c:forEach>
 </ul>
 <p><a href="/homepage">Back to the previous page</a> </p>

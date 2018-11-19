@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class TweetController {
 
     @Autowired
     private TweetRepository tweetRepository;
@@ -29,5 +29,13 @@ public class UserController {
         model.addAttribute("tweets", userTweets);
         model.addAttribute("user",user);
         return "user";
+    }
+
+    @GetMapping("/tweet")
+    public String showTweet(HttpServletRequest request, Model model){
+        int id= Integer.parseInt(request.getParameter("id"));
+        Tweet tweet = tweetRepository.findOne(id);
+        model.addAttribute("tweet", tweet);
+        return "tweet";
     }
 }
