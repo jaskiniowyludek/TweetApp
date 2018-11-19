@@ -45,17 +45,18 @@ public class TweetController {
 
     @GetMapping("/tweet")
     public String showTweet(HttpServletRequest request, Model model){
-        int id= Integer.parseInt(request.getParameter("id"));
+        int id= Integer.parseInt(request.getParameter("takieId"));
         Tweet tweet = tweetRepository.findOne(id);
-        List<Comment> comments = commentRepository.findAllByTweetOrderByDateDesc(tweet);
         Comment comment = new Comment();
+        List<Comment> comments = commentRepository.findAllByTweetOrderByDateDesc(tweet);
+        model.addAttribute("newComment", comment);
         model.addAttribute("comments", comments);
         model.addAttribute("tweet", tweet);
-        model.addAttribute("newComment", comment);
         return "tweet";
     }
     @PostMapping("/tweet")
-    public String saveComment(@Valid Comment newComment, BindingResult result, HttpServletRequest request, Model model){
+    public String saveComment(@Valid Comment newComment, BindingResult result, HttpServletRequest request,
+                              Model model){
         if (result.hasErrors()){
             return "tweet";
         }
@@ -63,11 +64,12 @@ public class TweetController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         newComment.setUser(user);
+       // newComment.setId(5);
         int id= Integer.parseInt(request.getParameter("tweetId"));
         Tweet tweet = tweetRepository.findOne(id);
         newComment.setTweet(tweet);
         commentRepository.save(newComment);
-        model.addAttribute("id", id);
+        model.addAttribute("takieId", id);
         return "redirect:/tweet";
     }
 }

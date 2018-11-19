@@ -29,7 +29,7 @@
                 ${tweet.text}
             </p>
                 <p>
-                    <a href="/tweet?id=${tweet.id}">Details</a>
+                    <a href="/tweet?takieId=${tweet.id}">Details</a>
                 </p></li>
         </c:forEach>
     </ul>

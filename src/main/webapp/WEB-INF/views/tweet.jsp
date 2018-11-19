@@ -25,6 +25,7 @@
         <form:textarea path="text" placeholder="Type your comment"/>
         <form:errors path="text"/>
         <input type="hidden" name="tweetId" value="${tweet.id}">
+        <%--<form:hidden path="tweet.id" value="${tweet.id}"/>--%>
         <input type="submit" value="Send"/>
     </form:form>
 </div>
