@@ -33,14 +33,24 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<Message> messagesSent;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<Message> messagesReceived;
+
     public User(){}
 
-    public User(String username, String password, boolean enabled, String email, List<Tweet> tweets) {
+    public User(String username, String password, boolean enabled, String email, List<Tweet> tweets,
+                List<Comment> comments, List<Message> messagesSent, List<Message> messagesReceived) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
         this.tweets = tweets;
+        this.comments = comments;
+        this.messagesReceived = messagesReceived;
+        this.messagesSent = messagesSent;
     }
 
     public int getId() {
@@ -89,6 +99,30 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
     }
 }
 

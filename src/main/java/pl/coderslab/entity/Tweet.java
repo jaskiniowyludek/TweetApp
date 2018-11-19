@@ -34,10 +34,11 @@ public class Tweet {
 
     public Tweet(){}
 
-    public Tweet(User user, java.util.Date date, String text) {
+    public Tweet(User user, java.util.Date date, String text, List<Comment> comments) {
         this.user = user;
         this.date = date;
         this.text = text;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -75,5 +76,13 @@ public class Tweet {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

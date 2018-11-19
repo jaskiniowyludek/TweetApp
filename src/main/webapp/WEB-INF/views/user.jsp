@@ -13,6 +13,7 @@
 </head>
 <body>
 <%@include file="fragments/header2.jsp"%>
+<p><a href="/sendmsg?userId=${user.id}"> Send a message to this user</a></p>
 <h2>See all ${user.username}'s tweets:</h2>
 <ul>
     <c:forEach items="${tweets}" var="tweet">

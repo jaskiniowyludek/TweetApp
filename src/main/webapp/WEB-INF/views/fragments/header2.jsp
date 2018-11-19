@@ -20,6 +20,12 @@
         <a href="/homepage">Homepage</a>
     </div>
     <div>
+        <a href="/messages">Messages</a>
+    </div>
+    <div>
+        <a href="">Edit profile</a>
+    </div>
+    <div>
         <a href="/logout">Logout</a>
     </div>
 </body>
