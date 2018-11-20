@@ -73,10 +73,8 @@ public class MessageController {
     @GetMapping("/showmsg")
     public String showMessageDetails(HttpServletRequest request, Model model){
         int id = Integer.parseInt(request.getParameter("id"));
+        messageRepository.changeReaded(true, id);
         Message message = messageRepository.findOne(id);
-      //  message.setReaded(true);
-        messageRepository.setMessageReaded(true, id);
-//        Message messageUpdated = messageRepository.findOne(id);
         model.addAttribute("message", message);
         return "message";
     }

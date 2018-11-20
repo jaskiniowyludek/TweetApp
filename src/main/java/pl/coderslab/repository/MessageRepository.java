@@ -8,11 +8,8 @@ import pl.coderslab.entity.User;
 
 import java.util.List;
 
-public interface MessageRepository extends JpaRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<Message, Integer>, MessageRepoCustom {
 
     List<Message> findAllBySenderOrderByDateDesc(User sender);
     List<Message> findAllByReceiverOrderByDateDesc(User receiver);
-    @Modifying
-    @Query("update Message m set m.readed = ?1 where m.id = ?2")
-    void setMessageReaded(boolean readed, int id);
 }
