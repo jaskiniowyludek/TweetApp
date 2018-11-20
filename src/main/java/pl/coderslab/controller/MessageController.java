@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,5 +69,22 @@ public class MessageController {
         String confirmation = "Your message has been sent successfully";
         model.addAttribute("confirmation", confirmation);
         return "messageForm";
+    }
+    @GetMapping("/showmsg")
+    public String showMessageDetails(HttpServletRequest request, Model model){
+        int id = Integer.parseInt(request.getParameter("id"));
+        Message message = messageRepository.findOne(id);
+      //  message.setReaded(true);
+        messageRepository.setMessageReaded(true, id);
+//        Message messageUpdated = messageRepository.findOne(id);
+        model.addAttribute("message", message);
+        return "message";
+    }
+    @GetMapping("/showyourmsg")
+    public String showSentMsgDetails(HttpServletRequest request, Model model){
+        int id = Integer.parseInt(request.getParameter("id"));
+        Message message = messageRepository.findOne(id);
+        model.addAttribute("message", message);
+        return "message";
     }
 }

@@ -1,6 +1,8 @@
 package pl.coderslab.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.entity.Message;
 import pl.coderslab.entity.User;
 
@@ -10,4 +12,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     List<Message> findAllBySenderOrderByDateDesc(User sender);
     List<Message> findAllByReceiverOrderByDateDesc(User receiver);
+    @Modifying
+    @Query("update Message m set m.readed = ?1 where m.id = ?2")
+    void setMessageReaded(boolean readed, int id);
 }
