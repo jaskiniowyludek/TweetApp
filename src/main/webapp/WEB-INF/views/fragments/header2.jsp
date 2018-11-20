@@ -23,7 +23,7 @@
         <a href="/messages">Messages</a>
     </div>
     <div>
-        <a href="">Edit profile</a>
+        <a href="/showProfile">Edit profile</a>
     </div>
     <div>
         <a href="/logout">Logout</a>

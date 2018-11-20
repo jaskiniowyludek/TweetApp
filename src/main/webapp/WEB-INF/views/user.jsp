@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: ewelina
@@ -23,7 +24,7 @@
             Added by: ${tweet.user.username} on ${tweet.date}
             </li>
         <p>
-            <a href="/tweet?id=${tweet.id}">Details</a>
+            <a href="/tweet?takieId=${tweet.id}">See comments(jak dodać liczbę???)</a>
         </p>
     </c:forEach>
 </ul>

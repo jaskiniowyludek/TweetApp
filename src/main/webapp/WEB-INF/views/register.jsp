@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ewelina
@@ -25,6 +26,8 @@
             <form:input path="email" placeholder="Type your email address"/>
             <form:errors path="email"/>
         </div>
+        <c:if test="${not empty errorMessage}">
+            <div style="color:red; font-weight: bold; margin: 30px 0px;"><c:out value="${errorMessage}"/></div></c:if>
         <div>
             Password:
             <form:password path="password" placeholder="Type password"/>

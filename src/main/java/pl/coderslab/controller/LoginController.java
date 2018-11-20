@@ -67,8 +67,12 @@ public class LoginController {
         return "register";
     }
     @PostMapping("/register")
-    public String processingRegistregion(@Valid User user, BindingResult result){
-        if (result.hasErrors()){
+    public String processingRegistregion(@Valid User user, BindingResult result, Model model){
+        String email = user.getEmail();
+        User user1 = userRepository.findByEmail(email);
+        if (result.hasErrors()||user1.getEmail().equals(user.getEmail())){
+            String errorMessge = "Somebody is already using this email!";
+            model.addAttribute("errorMessage", errorMessge);
             return "register";
         }
         userRepository.save(user);
@@ -79,4 +83,38 @@ public class LoginController {
     public String userAdded(){
         return "registrationConfirmed";
     }
+
+    @RequestMapping("/showProfile")
+    public String showProfile(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("currentUser", user);
+        return "profile";
+    }
+    @GetMapping("/changeUsername")
+    public String changeUsername(HttpServletRequest request, Model model){
+//        int id = Integer.parseInt(request.getParameter("userId"));
+//        User user = userRepository.findOne(id);
+//        model.addAttribute("currentUser", user);
+        return "profile/confirmationUsername";
+    }
+    @PostMapping("/changeUsername")
+    public String confirmChange(HttpServletRequest request,
+                                Model model){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+       if (BCrypt.checkpw(password, user.getPassword())){
+           userRepository.changeUsername(username, user.getId());
+           String errorMessge = "Username changed successfully!";
+           model.addAttribute("errorMessage", errorMessge);
+           return "profile";
+        }
+        String errorMessge = "Wrong password!";
+        model.addAttribute("errorMessage", errorMessge);
+        return "profile/confirmationUsername";
+    }
+
 }
+//TODO change email. change password. send email to user if forget password

@@ -38,6 +38,7 @@ public class TweetController {
         int id = Integer.parseInt(request.getParameter("id"));
         User user = userRepository.findOne(id);
         List<Tweet> userTweets = tweetRepository.findAllByUserOrderByDateDesc(user);
+//        int numberOfComments = commentRepository.countAllByTweet();
         model.addAttribute("tweets", userTweets);
         model.addAttribute("user",user);
         return "user";

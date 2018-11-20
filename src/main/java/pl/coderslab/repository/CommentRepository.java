@@ -12,4 +12,5 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findAllByTweetOrderByDateDesc(Tweet tweet);
     @Query("select c from Comment c where c.tweet.id=?1")
     List<Comment> findAllByTweetIdOrderByDateDesc(int id);
+    int countAllByTweet(Tweet tweet);
 }
