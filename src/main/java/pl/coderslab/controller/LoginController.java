@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
 
@@ -105,9 +102,13 @@ public class LoginController {
         User user = (User) session.getAttribute("user");
         String password = request.getParameter("password");
         String username = request.getParameter("username");
+        int id = user.getId();
        if (BCrypt.checkpw(password, user.getPassword())){
            userRepository.changeUsername(username, user.getId());
            String errorMessge = "Username changed successfully!";
+           user = userRepository.findOne(id);
+           session.setAttribute("user", user);
+           model.addAttribute("currentUser", user);
            model.addAttribute("errorMessage", errorMessge);
            return "profile";
         }
@@ -115,6 +116,88 @@ public class LoginController {
         model.addAttribute("errorMessage", errorMessge);
         return "profile/confirmationUsername";
     }
+    @GetMapping("/changeEmail")
+    public String changeEmail(){
+        return "profile/confirmationEmail";
+    }
+    @PostMapping("/changeEmail")
+    public String confirmChangeEmail(HttpServletRequest request,
+                                Model model){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        int id = user.getId();
+        User user1 = userRepository.findByEmail(email);
+        if (user1!=null){
+            String errorMessge = "Somebody is already using this email!";
+            model.addAttribute("errorMessage", errorMessge);
+            return "profile/confirmationEmail";
+        }
+        if (BCrypt.checkpw(password, user.getPassword())){
+            userRepository.changeEmail(email, user.getId());
+            String errorMessge = "Email address changed successfully!";
+            user = userRepository.findOne(id);
+            session.setAttribute("user", user);
+            model.addAttribute("currentUser", user);
+            model.addAttribute("errorMessage", errorMessge);
+            return "profile";
+        }
+        String errorMessge = "Wrong password!";
+        model.addAttribute("errorMessage", errorMessge);
+        return "profile/confirmationEmail";
+    }
+
+    @GetMapping("/changePassword")
+    public String changePassword(){
+        return "profile/confirmationPassword";
+    }
+    @PostMapping("/changePassword")
+    public String confirmChangePassword(HttpServletRequest request,
+                                        Model model){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String password = request.getParameter("newPassword");
+        String password2 = request.getParameter("newPassword2");
+        String currentPassword = request.getParameter("password");
+        int id = user.getId();
+        if (!(password.equals(password2))){
+            String errorMessge = "Passwords not equals!";
+            model.addAttribute("errorMessage", errorMessge);
+            return "profile/confirmationPassword";
+        }
+        if (BCrypt.checkpw(currentPassword, user.getPassword())){
+            password = BCrypt.hashpw(password,BCrypt.gensalt());
+            userRepository.changePassword(password, user.getId());
+            String errorMessge = "Password changed successfully!";
+            user = userRepository.findOne(id);
+            session.setAttribute("user", user);
+            model.addAttribute("currentUser", user);
+            model.addAttribute("errorMessage", errorMessge);
+            return "profile";
+        }
+        String errorMessge = "Wrong password!";
+        model.addAttribute("errorMessage", errorMessge);
+        return "profile/confirmationPassword";
+    }
+    @GetMapping("/deleteUser")
+    public String deleteUser(){
+        return "profile/confirmationDelete";
+    }
+    @PostMapping("/deleteUser")
+    public String deleteUserConfirmed(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String password = request.getParameter("password");
+        if (BCrypt.checkpw(password,user.getPassword())){
+            userRepository.delete(user);
+            session.invalidate();
+            return "main";
+        }
+        String errorMessge = "Wrong password!";
+        model.addAttribute("errorMessage", errorMessge);
+        return "profile/confirmationDelete";
+    }
 
 }
-//TODO change email. change password. send email to user if forget password
+//TODO change password- validate new password?? send email to user if forget password. Comments fix!! filter login user

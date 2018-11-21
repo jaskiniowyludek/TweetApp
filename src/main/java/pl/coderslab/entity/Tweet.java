@@ -6,8 +6,6 @@ import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
-import java.sql.Date;
 import java.util.List;
 
 @Entity
